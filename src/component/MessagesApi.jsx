@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const MessagesAPI = () => {
+const MessagesApi = () => {
   const [messages, setMessages] = useState([]);
 
   
@@ -42,4 +42,4 @@ const MessagesAPI = () => {
   );
 };
 
-export default MessagesAPI;
+export default MessagesApi;

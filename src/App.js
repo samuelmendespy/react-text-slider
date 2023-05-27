@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import clouds from './915-1200x600.jpg'
+import clouds from './placeholder.jpg'
 import './App.css';
 import MessageAlt from './component/MessageAlt';
 import NewMessageForm from './component/form/NewMessageForm';
@@ -12,7 +12,7 @@ function App() {
   const [showAdd, setShowAdd] = useState(false);
 
 
-  const addMessage = async (messageText) => {
+  const addMessageApi = async (messageText) => {
     try {
       const response = await fetch('http://localhost:5000/quotes', {
         method: 'POST',
@@ -48,7 +48,7 @@ function App() {
       </div>
     <div className='send'>
       <button onClick={toggleAdd}>{showAdd ? 'Hide Form' : 'Show Form'}</button>
-      { showAdd && <NewMessageForm addMessage={addMessage} /> }
+      { showAdd && <NewMessageForm addMessage={addMessageApi} /> }
     </div>
 
       </div>
