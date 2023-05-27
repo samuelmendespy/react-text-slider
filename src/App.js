@@ -1,23 +1,57 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+
+import clouds from './915-1200x600.jpg'
 import './App.css';
+import MessageAlt from './component/MessageAlt';
+import NewMessageForm from './component/form/NewMessageForm';
+
+
+
 
 function App() {
+  const [showAdd, setShowAdd] = useState(false);
+
+
+  const addMessage = async (messageText) => {
+    try {
+      const response = await fetch('http://localhost:5000/quotes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: messageText }),
+      });
+      const data = await response.json();
+      console.log('Message sent:', data);
+    } catch (error) {
+      console.log('Error sending message:', error);
+    }
+  };
+
+  const toggleAdd = () => {
+    setShowAdd((prevShowAdd) => !prevShowAdd);
+  };
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className='container'>
+      <div className='frameimg'>
+      {/* <img src="https://picsum.photos/1200/600" alt="" srcset="" width={900} height={450}/> */}
+      <img src={clouds} alt="" srcset="" width={900} height={450}/>
+
+      </div>
+
+
+      <div className='messagebox'>
+      <MessageAlt />
+      </div>
+    <div className='send'>
+      <button onClick={toggleAdd}>{showAdd ? 'Hide Form' : 'Show Form'}</button>
+      { showAdd && <NewMessageForm addMessage={addMessage} /> }
+    </div>
+
+      </div>
     </div>
   );
 }
